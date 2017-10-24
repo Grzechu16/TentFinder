@@ -62,24 +62,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        provider = (TextView) findViewById(R.id.dostawca_ety);
-        longitude = (TextView) findViewById(R.id.dlugosc_ety);
-        latitude = (TextView) findViewById(R.id.szerokosc_ety);
 
-        coordinates = (Button) findViewById(R.id.coordinates_button);
+
+        addTent = (Button) findViewById(R.id.bAddTent);
         Log.d("debugging", "Variables defined.");
 
-        AddTent = (Button) findViewById(R.id.bAddTent);
-        AddTent.setOnClickListener(new View.OnClickListener() {
-        addTent = (Button) findViewById(R.id.bAddTent);
-
-        addTent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),AddTent.class);
-                startActivity(intent);
-            }
-        });
 
     }
 }
