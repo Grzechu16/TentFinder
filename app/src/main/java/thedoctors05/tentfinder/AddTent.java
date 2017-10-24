@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AddTent extends AppCompatActivity {
 
@@ -49,10 +50,11 @@ public class AddTent extends AppCompatActivity {
 
     private void getPositon(TextView view1, TextView view2) {
 
+
         //Checking permission for SDK >= 23
         if (Build.VERSION.SDK_INT >= 23 &&
-                ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
             criteria = new Criteria();
             locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -60,13 +62,20 @@ public class AddTent extends AppCompatActivity {
             location = locationManager.getLastKnownLocation(positionProvider);
             view1.setText("Longitude: " + location.getLongitude());
             view2.setText("Longitude: " + location.getLatitude());
+         Toast toast = Toast.makeText(getApplicationContext(),positionProvider,Toast.LENGTH_LONG);
+            toast.show();
+
         } else {
-            Log.d("debugging", "Permission checked: NOK");
+
             //Request permission from the user
             if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
             }
-            Log.d("debugging", "Permission requested.");
+
         }
     }
 }
+
+
+
+
