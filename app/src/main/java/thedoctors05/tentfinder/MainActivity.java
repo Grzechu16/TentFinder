@@ -16,10 +16,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button AddTent;
+    ListView listView;
+    Button addTent;
 
     TextView provider, longitude, latitude;
     LocationManager lm;
@@ -69,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
 
         AddTent = (Button) findViewById(R.id.bAddTent);
         AddTent.setOnClickListener(new View.OnClickListener() {
+        addTent = (Button) findViewById(R.id.bAddTent);
+
+        addTent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),AddTent.class);
