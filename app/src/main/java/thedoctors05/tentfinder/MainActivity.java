@@ -7,14 +7,19 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.view.View;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
+
+    Button AddTent;
 
     TextView provider, longitude, latitude;
     LocationManager lm;
@@ -54,6 +59,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        AddTent = (Button) findViewById(R.id.bAddTent);
+        AddTent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),AddTent.class);
+                startActivity(intent);
+            }
+        });
+
 
         provider = (TextView) findViewById(R.id.dostawca_ety);
         longitude = (TextView) findViewById(R.id.dlugosc_ety);
