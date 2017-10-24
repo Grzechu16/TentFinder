@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
             cr = new Criteria();    //Provider criteria, e.g. power consumption or cost
             lm = (LocationManager) getSystemService(LOCATION_SERVICE);      //Via getSystemService you can manage other sensors such as temperature sensor, pressure sensor
             bestProvider = lm.getBestProvider(cr, true);    //Name of the best provider considering criteria, true = only active providers
-            loc = lm.getLastKnownLocation(bestProvider);
+            loc = lm.getLastKnownLocation("network");
             Log.d("debugging", "Long: " + loc.getLongitude() + " / Lat: " + loc.getLatitude());
 
             //Setting text
@@ -60,6 +60,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        provider = (TextView) findViewById(R.id.dostawca_ety);
+        longitude = (TextView) findViewById(R.id.dlugosc_ety);
+        latitude = (TextView) findViewById(R.id.szerokosc_ety);
+
+        coordinates = (Button) findViewById(R.id.coordinates_button);
+        Log.d("debugging", "Variables defined.");
+
         AddTent = (Button) findViewById(R.id.bAddTent);
         AddTent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,12 +76,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        provider = (TextView) findViewById(R.id.dostawca_ety);
-        longitude = (TextView) findViewById(R.id.dlugosc_ety);
-        latitude = (TextView) findViewById(R.id.szerokosc_ety);
-
-        coordinates = (Button) findViewById(R.id.coordinates_button);
-        Log.d("debugging", "Variables defined.");
     }
 }
