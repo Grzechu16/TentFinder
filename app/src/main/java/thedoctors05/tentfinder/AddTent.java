@@ -21,11 +21,11 @@ public class AddTent extends AppCompatActivity {
     EditText tentNameEditText;
     TextView longitudeTextView, latitudeTextView;
     Button getPositionButton, saveButton;
-    int longitude, latitude;
     String positionProvider;
     Criteria criteria;
     LocationManager locationManager;
     Location location;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,19 +37,9 @@ public class AddTent extends AppCompatActivity {
         latitudeTextView = (TextView) findViewById(R.id.tvLatitude);
         getPositionButton = (Button) findViewById(R.id.bGetPosition);
         saveButton = (Button) findViewById(R.id.bSaveTent);
-
-        getPositionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getPositon(longitudeTextView, latitudeTextView);
-            }
-        });
-
     }
 
-
-    private void getPositon(TextView view1, TextView view2) {
-
+    public void getPosition(View view) {
 
         //Checking permission for SDK >= 23
         if (Build.VERSION.SDK_INT >= 23 &&
@@ -60,9 +50,9 @@ public class AddTent extends AppCompatActivity {
             locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
             positionProvider = locationManager.getBestProvider(criteria, true);
             location = locationManager.getLastKnownLocation(positionProvider);
-            view1.setText("Longitude: " + location.getLongitude());
-            view2.setText("Longitude: " + location.getLatitude());
-         Toast toast = Toast.makeText(getApplicationContext(),positionProvider,Toast.LENGTH_LONG);
+            //longitudeTextView.setText("Longitude: " + location.getLongitude());
+            //latitudeTextView.setText("Longitude: " + location.getLatitude());
+            Toast toast = Toast.makeText(getApplicationContext(),"Best provider: " + positionProvider,Toast.LENGTH_SHORT);
             toast.show();
 
         } else {
@@ -74,6 +64,7 @@ public class AddTent extends AppCompatActivity {
 
         }
     }
+
 }
 
 
