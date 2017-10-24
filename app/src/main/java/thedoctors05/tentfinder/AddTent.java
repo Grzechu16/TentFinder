@@ -50,8 +50,8 @@ public class AddTent extends AppCompatActivity {
             locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
             positionProvider = locationManager.getBestProvider(criteria, true);
             location = locationManager.getLastKnownLocation(positionProvider);
-            //longitudeTextView.setText("Longitude: " + location.getLongitude());
-            //latitudeTextView.setText("Longitude: " + location.getLatitude());
+            longitudeTextView.setText("Longitude: " + location.getLongitude());
+            latitudeTextView.setText("Longitude: " + location.getLatitude());
             Toast toast = Toast.makeText(getApplicationContext(),"Best provider: " + positionProvider,Toast.LENGTH_SHORT);
             toast.show();
 
