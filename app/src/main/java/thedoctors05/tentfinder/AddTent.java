@@ -50,21 +50,23 @@ public class AddTent extends AppCompatActivity {
             locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
             positionProvider = locationManager.getBestProvider(criteria, true);
             location = locationManager.getLastKnownLocation(positionProvider);
-            longitudeTextView.setText("Longitude: " + location.getLongitude());
-            latitudeTextView.setText("Longitude: " + location.getLatitude());
-            Toast toast = Toast.makeText(getApplicationContext(),"Best provider: " + positionProvider,Toast.LENGTH_SHORT);
-            toast.show();
 
+            if (location != null) {
+                longitudeTextView.setText("Longitude: " + location.getLongitude());
+                latitudeTextView.setText("Longitude: " + location.getLatitude());
+                Toast toast = Toast.makeText(getApplicationContext(), "Best provider: " + positionProvider, Toast.LENGTH_SHORT);
+                toast.show();
+            }
         } else {
 
             //Request permission from the user
             if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+                return ;
             }
 
         }
     }
-
 }
 
 
