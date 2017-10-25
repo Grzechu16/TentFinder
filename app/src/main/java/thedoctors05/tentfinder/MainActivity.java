@@ -1,19 +1,8 @@
 package thedoctors05.tentfinder;
 
-import android.content.pm.PackageManager;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationManager;
-import android.os.Build;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -21,40 +10,16 @@ import android.widget.ListView;
 public class MainActivity extends AppCompatActivity {
 
     ListView listView;
-    Button addTent;
+    Button addTent, navigate;
 
-    TextView provider, longitude, latitude;
-    LocationManager lm;
-    Criteria cr;
-    Location loc;
-    String bestProvider;
+    public void navigationActivity (View v) {
+        Intent i = new Intent(this, Navigation.class);
+        startActivity(i);
+    }
 
-    Button coordinates;
-
-    public void getLocationFunc (View v){
-        //Checking permission for SDK >= 23
-        if ( Build.VERSION.SDK_INT >= 23 &&
-                ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION ) == PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            Log.d("debugging", "Permission checked: OK");
-            cr = new Criteria();    //Provider criteria, e.g. power consumption or cost
-            lm = (LocationManager) getSystemService(LOCATION_SERVICE);      //Via getSystemService you can manage other sensors such as temperature sensor, pressure sensor
-            bestProvider = lm.getBestProvider(cr, true);    //Name of the best provider considering criteria, true = only active providers
-            loc = lm.getLastKnownLocation("network");
-            Log.d("debugging", "Long: " + loc.getLongitude() + " / Lat: " + loc.getLatitude());
-
-            //Setting text
-            provider.setText(bestProvider);
-            longitude.setText("" + loc.getLongitude());
-            latitude.setText("" + loc.getLatitude());
-        } else {
-            Log.d("debugging", "Permission checked: NOK");
-            //Request permission from the user
-            if ( ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
-                ActivityCompat.requestPermissions( this, new String[] {android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-            }
-            Log.d("debugging", "Permission requested.");
-        }
+    public void addTentActivity (View v) {
+        Intent i = new Intent(this, AddTent.class);
+        startActivity(i);
     }
 
     @Override
@@ -62,11 +27,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         addTent = (Button) findViewById(R.id.bAddTent);
-        Log.d("debugging", "Variables defined.");
-
-
+        navigate = (Button) findViewById(R.id.bNavigate);
     }
 }

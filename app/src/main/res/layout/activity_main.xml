@@ -21,8 +21,9 @@
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/linearLayout"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="11dp">
 
     </ListView>
 
@@ -31,8 +32,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/add_new_tent"
-        android:layout_centerHorizontal="true"
+        android:onClick="addTentActivity"
         android:layout_alignParentBottom="true"
-        android:onClick="bAddTent"/>
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/bNavigate" />
+
+    <Button
+        android:id="@+id/bNavigate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Navigate"
+        android:layout_alignParentEnd="true"
+        android:onClick="navigationActivity"/>
 
 </RelativeLayout>

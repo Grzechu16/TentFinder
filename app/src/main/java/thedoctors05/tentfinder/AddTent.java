@@ -26,11 +26,12 @@ public class AddTent extends AppCompatActivity {
     LocationManager locationManager;
     Location location;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_tent);
+
+        Log.d("debugging", "I'm in AddTent class.");
 
         tentNameEditText = (EditText) findViewById(R.id.etTentName);
         longitudeTextView = (TextView) findViewById(R.id.tvLongitude);

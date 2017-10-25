@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context="thedoctors05.tentfinder.Navigation"
+    android:background="@drawable/grass">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TentFinder"
+            android:id="@+id/nazwa_tv"
+            android:textSize="35dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="left|top"
+            android:layout_marginTop="20dp"
+            android:textColor="#ffffff" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:layout_gravity="right|top"
+            android:src="@mipmap/icon" />
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/navigate"
+            android:id="@+id/nawiguj_prz"
+            android:layout_gravity="left|bottom"
+            android:background="#e1e1e1"
+            android:textColor="#000000"/>
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapSentences"
+            android:ems="10"
+            android:id="@+id/nazwaNamiotu_et"
+            android:layout_marginTop="100dp"
+            android:gravity="center_horizontal"
+            android:textColor="#ffffff"
+            android:layout_gravity="center_horizontal|top" />
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/arrow"
+            android:layout_gravity="center"
+            android:src="@drawable/arrow" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/odleglosc_tv"
+            android:layout_gravity="left|bottom"
+            android:layout_marginBottom="50dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/wsp"
+            android:layout_gravity="left|bottom"
+            android:layout_marginBottom="100dp" />
+
+    </FrameLayout>
+
+</RelativeLayout>

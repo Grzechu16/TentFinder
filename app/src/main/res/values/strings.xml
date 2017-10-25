@@ -6,4 +6,8 @@
     <string name="longitude">Longitude:</string>
     <string name="latitude">Latitude:</string>
     <string name="add_new_tent">Add new tent</string>
+    <string name="navigate">Navigate</string>
+    <string name="title_activity_navigation">Navigation</string>
+    <string name="hello_round">Hello Round World!</string>
+    <string name="hello_square">Hello Square World!</string>
 </resources>
