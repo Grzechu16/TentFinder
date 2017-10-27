@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TentFinder</string>
+    <string name="app_name">Tent Finder</string>
     <string name="get_position">Get Position</string>
     <string name="type_name_hint">Type the tent name here</string>
     <string name="save_tent">Save Tent</string>
@@ -11,4 +11,10 @@
     <string name="hello_round">Hello Round World!</string>
     <string name="hello_square">Hello Square World!</string>
     <string name="set_position">Set position</string>
+    <string name="get_longitude">Get longitude</string>
+    <string name="get_latitude">Get latitude</string>
+    <string name="latitudeRowDesc">Latitude:</string>
+    <string name="longitudeRowDesc">Longitude:</string>
+    <string name="position_time">Position details received at </string>
+    <string name="position_provider">Provider: </string>
 </resources>

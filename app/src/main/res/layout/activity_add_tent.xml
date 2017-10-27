@@ -4,7 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/grass"
     tools:context="thedoctors05.tentfinder.AddTent">
+
+
+    <TextView
+        android:id="@+id/nazwa_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="TentFinder"
+        android:textColor="#ffffff"
+        android:textSize="35dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:src="@mipmap/icon" />
 
 
     <EditText
@@ -14,7 +34,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="150dp"
         android:hint="@string/type_name_hint"
-        android:textSize="25dp" />
+        android:textSize="20dp" />
 
     <LinearLayout
         android:id="@+id/lin1"
@@ -42,7 +62,7 @@
             android:cursorVisible="false"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            android:hint="Get longitude"
+            android:hint="@string/get_longitude"
             android:textSize="15dp" />
 
     </LinearLayout>
@@ -73,12 +93,13 @@
             android:cursorVisible="false"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            android:hint="Get longitude"
+            android:hint="@string/get_latitude"
             android:textSize="15dp" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/lin3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/lin2"
@@ -95,6 +116,29 @@
         />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/lin4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lin3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvProvider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10dp" />
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10dp" />
+
+    </LinearLayout>
+
 
     <Button
         android:id="@+id/bSaveTent"
@@ -104,7 +148,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp"
         android:enabled="false"
-        android:text="@string/save_tent"
-        android:onClick="addNewTent"/>
+        android:onClick="addNewTent"
+        android:text="@string/save_tent" />
 
 </RelativeLayout>

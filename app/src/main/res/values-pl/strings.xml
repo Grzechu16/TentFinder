@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Znajdź namiot</string>
+    <string name="get_position">Pobierz pozycję</string>
+    <string name="type_name_hint">Wprowadź nazwę namiotu</string>
+    <string name="save_tent">Zapisz namiot</string>
+    <string name="longitude">Dłg. geograficzna:</string>
+    <string name="latitude">Szer. geograficzna:</string>
+    <string name="add_new_tent">Dodaj namiot</string>
+    <string name="navigate">Nawiguj</string>
+    <string name="title_activity_navigation">Nawigacja</string>
+    <string name="hello_round">Hello Round World!</string>
+    <string name="hello_square">Hello Square World!</string>
+    <string name="set_position">Ustal pozycję</string>
+    <string name="get_longitude">Wsp. długości</string>
+    <string name="get_latitude">Wsp. szerokości</string>
+    <string name="latitudeRowDesc">Szerokość: </string>
+    <string name="longitudeRowDesc">Długość: </string>
+    <string name="position_time">Dane pochodzą z godziny </string>
+    <string name="position_provider">Źródło sygnału: </string>
+</resources>

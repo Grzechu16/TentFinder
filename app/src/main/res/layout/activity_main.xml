@@ -6,24 +6,37 @@
     android:layout_height="match_parent"
     tools:context="thedoctors05.tentfinder.MainActivity"
     android:weightSum="1"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/grassblur"
+    >
 
+    <TextView
+        android:id="@+id/nazwa_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="TentFinder"
+        android:textColor="#ffffff"
+        android:textSize="35dp" />
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp"
-        android:id="@+id/linearLayout"></LinearLayout>
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:src="@mipmap/icon"
+        />
 
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="11dp">
+        android:layout_below="@id/imageView"
+        android:layout_above="@+id/bAddTent"
+
+        >
 
     </ListView>
 
@@ -42,7 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="Navigate"
+        android:text="@string/navigate"
         android:layout_alignParentEnd="true"
         android:onClick="navigationActivity"/>
 

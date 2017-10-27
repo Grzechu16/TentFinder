@@ -16,13 +16,13 @@ import java.util.ArrayList;
  * Created by Gregory on 2017-10-26.
  */
 
-public class RowAdapter extends ArrayAdapter<RowBean> {
+public class TentAdapter extends ArrayAdapter<Tent> {
 
     Context context;
     int layoutResourceId;
-    ArrayList<RowBean> data = null;
+    ArrayList<Tent> data = null;
 
-    public RowAdapter(@NonNull Context context, @LayoutRes int layoutResourceId, @NonNull ArrayList<RowBean> data) {
+    public TentAdapter(@NonNull Context context, @LayoutRes int layoutResourceId, @NonNull ArrayList<Tent> data) {
         super(context, layoutResourceId, data);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
@@ -45,7 +45,7 @@ public class RowAdapter extends ArrayAdapter<RowBean> {
         } else {
             holder = (RowBeanHolder) row.getTag();
         }
-        RowBean object = data.get(position);
+        Tent object = data.get(position);
         holder.tvTitleRow.setText(object.Title);
         holder.tvLongitudeRow.setText(object.Longitude);
         holder.tvLatitudeRow.setText(object.Latitude);

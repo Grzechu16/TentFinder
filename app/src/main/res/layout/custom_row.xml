@@ -22,7 +22,7 @@
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
         android:paddingLeft="10dp"
-        android:text="Longitude"
+        android:text="@string/longitudeRowDesc"
         android:textColor="#000000" />
 
     <TextView
@@ -45,7 +45,7 @@
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/tvLongitudeRow"
         android:paddingLeft="10dp"
-        android:text="Latitude: "
+        android:text="@string/latitudeRowDesc"
         android:textColor="#000000" />
 
     <TextView
