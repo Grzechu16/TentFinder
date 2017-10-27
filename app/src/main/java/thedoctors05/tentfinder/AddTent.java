@@ -54,7 +54,7 @@ public class AddTent extends AppCompatActivity {
 
             if (location != null) {
                 longitudeTextView.setText("Longitude: " + location.getLongitude());
-                latitudeTextView.setText("Longitude: " + location.getLatitude());
+                latitudeTextView.setText("Latitude: " + location.getLatitude());
                 Toast toast = Toast.makeText(getApplicationContext(), "Best provider: " + positionProvider, Toast.LENGTH_SHORT);
                 toast.show();
             }

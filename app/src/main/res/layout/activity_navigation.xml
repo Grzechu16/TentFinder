@@ -32,13 +32,14 @@
             android:src="@mipmap/icon" />
 
         <Button
+            android:id="@+id/bNavigate"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="@string/navigate"
-            android:id="@+id/nawiguj_prz"
             android:layout_gravity="left|bottom"
             android:background="#e1e1e1"
-            android:textColor="#000000"/>
+            android:text="@string/navigate"
+            android:textColor="#000000"
+            android:onClick="navigationStart"/>
 
         <EditText
             android:layout_width="fill_parent"
@@ -52,27 +53,27 @@
             android:layout_gravity="center_horizontal|top" />
 
         <ImageView
+            android:id="@+id/arrow"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:id="@+id/arrow"
             android:layout_gravity="center"
             android:src="@drawable/arrow" />
 
         <TextView
+            android:id="@+id/distance_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/odleglosc_tv"
             android:layout_gravity="left|bottom"
-            android:layout_marginBottom="50dp" />
+            android:layout_marginBottom="50dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
+            android:id="@+id/coor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:id="@+id/wsp"
             android:layout_gravity="left|bottom"
-            android:layout_marginBottom="100dp" />
+            android:layout_marginBottom="100dp"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </FrameLayout>
 
