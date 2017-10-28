@@ -47,16 +47,6 @@
         android:text="@string/add_new_tent"
         android:onClick="addTentActivity"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/bNavigate" />
-
-    <Button
-        android:id="@+id/bNavigate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="@string/navigate"
-        android:layout_alignParentEnd="true"
-        android:onClick="navigationActivity"/>
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

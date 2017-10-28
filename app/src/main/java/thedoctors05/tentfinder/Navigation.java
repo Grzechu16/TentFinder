@@ -65,8 +65,9 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
         cr = new Criteria();
         lm = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-        bestProvider = lm.getBestProvider(cr, true);
-        loc = lm.getLastKnownLocation(bestProvider);
+        refreshLoc();
+        lm.requestLocationUpdates(bestProvider, 1000, 1, this);
+
         currLon = loc.getLongitude();
         currLat = loc.getLatitude();
 
@@ -122,35 +123,35 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
         distance = Math.sqrt(Math.pow(longitude - currLon, 2.0) + Math.pow(Math.cos(((currLon*Math.PI)/180.0))*(latitude - currLat), 2.0))*(40075.704/360.0);
     }
 
-    public void onLocationChanged(Location location) {
+    private void refreshLoc() {
         bestProvider = lm.getBestProvider(cr, true);
         loc = lm.getLastKnownLocation(bestProvider);
+    }
+
+    public void onLocationChanged (Location location) {
+        refreshLoc();
 
         currLon = loc.getLongitude();
         currLat = loc.getLatitude();
-    }
-
-
-    @Override
-    public void onAccuracyChanged(Sensor arg0, int arg1) {
+        Log.d("debugging", "Current lon/lat: " + currLon + " / " + currLat);
     }
 
     @Override
-    public void onSensorChanged(SensorEvent event) {
+    public void onAccuracyChanged (Sensor arg0, int arg1){}
+
+    @Override
+    public  void onSensorChanged(SensorEvent event){
         azimuthPhone = event.values[0];
         Log.d("debugging", "Phone azimuth: " + azimuthPhone);
         //navigationStart(v);
     }
 
     @Override
-    public void onProviderDisabled(String provider) {
-    }
+    public void onProviderDisabled(String provider){}
 
     @Override
-    public void onProviderEnabled(String provider) {
-    }
+    public void onProviderEnabled(String provider){}
 
     @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-    }
+    public void onStatusChanged(String provider, int status, Bundle extras) {}
 }
