@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -16,6 +19,11 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Tent> lista = new ArrayList();
     TentAdapter adapter;
     public static final int REQUEST_CODE = 123;
+    String tentName, longitude, latitude;
+    public static final String NAME = "name";
+    public static final String LONG = "long";
+    public static final String LATI = "lati";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +35,21 @@ public class MainActivity extends AppCompatActivity {
         adapter = new TentAdapter(this, R.layout.custom_row, lista);
         listView.setAdapter(adapter);
 
+       listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+           @Override
+           public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+               tentName = ((TextView) view.findViewById(R.id.tvTitleRow)).getText().toString();
+               longitude = ((TextView) view.findViewById(R.id.tvLongitudeRow)).getText().toString();
+               latitude = ((TextView) view.findViewById(R.id.tvLatitudeRow)).getText().toString();
+
+               Intent intent = new Intent(getApplicationContext(),Navigation.class);
+               intent.putExtra(NAME, tentName);
+               intent.putExtra(LONG, longitude);
+               intent.putExtra(LATI, latitude);
+               startActivity(intent);
+           }
+       });
     }
 
     public void addElements(){
@@ -60,5 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
 
 }

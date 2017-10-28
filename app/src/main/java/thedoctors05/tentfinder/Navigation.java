@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,6 +25,7 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
     ImageView arrow;
     Button bNavigate;
     TextView distance_text, coor;
+    EditText tentName;
 
     Double currLon, currLat;
     Double deltaX, deltaY, wbDeltaX, wbDeltaY, fi, azimuthTent, angle, distance;
@@ -35,6 +37,26 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
     Location loc;
 
     private SensorManager sm;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_navigation);
+
+        bNavigate = (Button) findViewById(R.id.bNavigate);
+        arrow = (ImageView) findViewById(R.id.arrow);
+        arrow.setVisibility(View.INVISIBLE);
+        tentName = (EditText) findViewById(R.id.nazwaNamiotu_et);
+
+        distance_text = (TextView) findViewById(R.id.distance_text);
+        coor = (TextView) findViewById(R.id.coor);
+
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            String title = extras.getString("name");
+            tentName.setText(title);
+        }
+    }
 
     public void navigationStart (View v) {
         sm = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -66,21 +88,21 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
         deltaY = latitude - currLat;
         deltaX = longitude - currLon;
 
-        if (deltaY < 0){
-            wbDeltaY = - deltaY;
+        if (deltaY < 0) {
+            wbDeltaY = -deltaY;
         } else {
             wbDeltaY = deltaY;
         }
 
         if (deltaX < 0) {
-            wbDeltaX = - deltaX;
+            wbDeltaX = -deltaX;
         } else {
             wbDeltaX = deltaX;
         }
 
-        fi = Math.atan(wbDeltaY/wbDeltaX);
+        fi = Math.atan(wbDeltaY / wbDeltaX);
 
-        if (deltaY>0 && deltaX > 0) {
+        if (deltaY > 0 && deltaX > 0) {
             azimuthTent = fi;
         } else if (deltaY > 0 && deltaX < 0) {
             azimuthTent = 180.0 - fi;
@@ -91,7 +113,7 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
         }
     }
 
-    public void rotationCalculate(){
+    public void rotationCalculate() {
         azimuthCalculate();
         angle = azimuthTent - azimuthPhone;
     }
@@ -100,7 +122,7 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
         distance = Math.sqrt(Math.pow(longitude - currLon, 2.0) + Math.pow(Math.cos(((currLon*Math.PI)/180.0))*(latitude - currLat), 2.0))*(40075.704/360.0);
     }
 
-    public void onLocationChanged (Location location) {
+    public void onLocationChanged(Location location) {
         bestProvider = lm.getBestProvider(cr, true);
         loc = lm.getLastKnownLocation(bestProvider);
 
@@ -108,35 +130,27 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
         currLat = loc.getLatitude();
     }
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_navigation);
-
-        bNavigate = (Button) findViewById(R.id.bNavigate);
-        arrow = (ImageView) findViewById(R.id.arrow);
-        arrow.setVisibility(View.INVISIBLE);
-
-        distance_text = (TextView) findViewById(R.id.distance_text);
-        coor = (TextView) findViewById(R.id.coor);
+    public void onAccuracyChanged(Sensor arg0, int arg1) {
     }
 
     @Override
-    public void onAccuracyChanged (Sensor arg0, int arg1){}
-
-    @Override
-    public  void onSensorChanged(SensorEvent event){
+    public void onSensorChanged(SensorEvent event) {
         azimuthPhone = event.values[0];
         Log.d("debugging", "Phone azimuth: " + azimuthPhone);
         //navigationStart(v);
     }
 
     @Override
-    public void onProviderDisabled(String provider){}
+    public void onProviderDisabled(String provider) {
+    }
 
     @Override
-    public void onProviderEnabled(String provider){}
+    public void onProviderEnabled(String provider) {
+    }
 
     @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {}
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+    }
 }
