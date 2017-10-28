@@ -33,16 +33,6 @@
             android:layout_marginRight="20dp"
             android:src="@mipmap/icon" />
 
-        <Button
-            android:id="@+id/bNavigate"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left|bottom"
-            android:background="#e1e1e1"
-            android:text="@string/navigate"
-            android:textColor="#000000"
-            android:onClick="navigationStart"/>
-
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

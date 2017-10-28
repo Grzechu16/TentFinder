@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     ListView listView;
-    Button addTent, navigate;
+    Button addTent;
     ArrayList<Tent> lista = new ArrayList();
     TentAdapter adapter;
     public static final int REQUEST_CODE = 123;
@@ -55,12 +55,6 @@ public class MainActivity extends AppCompatActivity {
     public void addElements(){
         listView = (ListView) findViewById(R.id.listView);
         addTent = (Button) findViewById(R.id.bAddTent);
-        navigate = (Button) findViewById(R.id.bNavigate);
-    }
-
-    public void navigationActivity(View v) {
-        Intent intent = new Intent(this, Navigation.class);
-        startActivity(intent);
     }
 
     public void addTentActivity(View v) {

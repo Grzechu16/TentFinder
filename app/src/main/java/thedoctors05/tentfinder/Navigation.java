@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Navigation extends AppCompatActivity implements SensorEventListener, LocationListener {
 
@@ -43,7 +44,6 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
 
-        bNavigate = (Button) findViewById(R.id.bNavigate);
         arrow = (ImageView) findViewById(R.id.arrow);
         arrow.setVisibility(View.INVISIBLE);
         tentName = (EditText) findViewById(R.id.nazwaNamiotu_et);
@@ -56,9 +56,11 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
             String title = extras.getString("name");
             tentName.setText(title);
         }
+
+        navigationStart();
     }
 
-    public void navigationStart (View v) {
+    public void navigationStart () {
         sm = (SensorManager) getSystemService(SENSOR_SERVICE);
         sm.registerListener(this, sm.getDefaultSensor(Sensor.TYPE_ORIENTATION), 0, null);   //Compass
 
@@ -137,13 +139,18 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
     }
 
     @Override
-    public void onAccuracyChanged (Sensor arg0, int arg1){}
+    public void onAccuracyChanged (Sensor arg0, int arg1){
+        Toast toast = Toast.makeText(getApplicationContext(), "Accuracy changed to: " + bestProvider, Toast.LENGTH_SHORT);
+        toast.show();
+    }
 
     @Override
     public  void onSensorChanged(SensorEvent event){
         azimuthPhone = event.values[0];
-        Log.d("debugging", "Phone azimuth: " + azimuthPhone);
-        //navigationStart(v);
+
+        rotationCalculate();
+        arrow.setRotation(angle.floatValue());
+        coor.setText(azimuthPhone + "");
     }
 
     @Override
