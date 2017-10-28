@@ -43,8 +43,9 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
         cr = new Criteria();
         lm = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-        bestProvider = lm.getBestProvider(cr, true);
-        loc = lm.getLastKnownLocation(bestProvider);
+        refreshLoc();
+        lm.requestLocationUpdates(bestProvider, 1000, 1, this);
+
         currLon = loc.getLongitude();
         currLat = loc.getLatitude();
 
@@ -100,12 +101,16 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
         distance = Math.sqrt(Math.pow(longitude - currLon, 2.0) + Math.pow(Math.cos(((currLon*Math.PI)/180.0))*(latitude - currLat), 2.0))*(40075.704/360.0);
     }
 
-    public void onLocationChanged (Location location) {
+    private void refreshLoc() {
         bestProvider = lm.getBestProvider(cr, true);
         loc = lm.getLastKnownLocation(bestProvider);
+    }
 
+    public void onLocationChanged (Location location) {
+        refreshLoc();
         currLon = loc.getLongitude();
         currLat = loc.getLatitude();
+        Log.d("debugging", "Current lon/lat: " + currLon + " / " + currLat);
     }
 
     @Override

@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
         adapter = new TentAdapter(this, R.layout.custom_row, lista);
         listView.setAdapter(adapter);
-
     }
 
     public void addElements(){
