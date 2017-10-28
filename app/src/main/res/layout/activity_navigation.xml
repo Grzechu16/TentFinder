@@ -22,6 +22,7 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="left|top"
             android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
             android:textColor="#ffffff" />
 
         <ImageView
@@ -29,6 +30,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/imageView"
             android:layout_gravity="right|top"
+            android:layout_marginRight="20dp"
             android:src="@mipmap/icon" />
 
         <Button
