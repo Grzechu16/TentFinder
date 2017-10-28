@@ -1,6 +1,5 @@
 package thedoctors05.tentfinder;
 
-import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -36,12 +35,10 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
     Location loc;
 
     private SensorManager sm;
-    private Sensor gsensor;
 
     public void navigationStart (View v) {
-        sm = (SensorManager) getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
-        gsensor = sm.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
-        sm.registerListener(this, gsensor, SensorManager.SENSOR_DELAY_GAME);
+        sm = (SensorManager) getSystemService(SENSOR_SERVICE);
+        sm.registerListener(this, sm.getDefaultSensor(Sensor.TYPE_ORIENTATION), 0, null);   //Compass
 
         cr = new Criteria();
         lm = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -51,9 +48,8 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
         currLon = loc.getLongitude();
         currLat = loc.getLatitude();
 
-        azimuthCalculate();
         rotationCalculate();
-        distanceCalculate();
+        distanceCalculate();    //Order must be keeped
         Log.d("debugging", "                             ");
         Log.d("debugging", "azimuthTent: " + azimuthTent);
         Log.d("debugging", "angle: " + angle);
@@ -101,7 +97,7 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
     }
 
     public void distanceCalculate() {
-        distance = Math.sqrt(Math.pow(deltaX, 2.0) + Math.pow(deltaY, 2.0));
+        distance = Math.sqrt(Math.pow(longitude - currLon, 2.0) + Math.pow(Math.cos(((currLon*Math.PI)/180.0))*(latitude - currLat), 2.0))*(40075.704/360.0);
     }
 
     public void onLocationChanged (Location location) {
@@ -129,7 +125,11 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
     public void onAccuracyChanged (Sensor arg0, int arg1){}
 
     @Override
-    public  void onSensorChanged(SensorEvent event){azimuthPhone = event.values[0];}
+    public  void onSensorChanged(SensorEvent event){
+        azimuthPhone = event.values[0];
+        Log.d("debugging", "Phone azimuth: " + azimuthPhone);
+        //navigationStart(v);
+    }
 
     @Override
     public void onProviderDisabled(String provider){}
