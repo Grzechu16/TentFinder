@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.provider.ContactsContract;
@@ -33,7 +34,8 @@ public class AddTent extends AppCompatActivity {
     String positionProvider;
     Criteria criteria;
     LocationManager locationManager;
-    Location location;
+    public boolean isGPSEnabled = false;
+    public boolean isNetworkEnabled= false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +68,26 @@ public class AddTent extends AppCompatActivity {
 
             criteria = new Criteria();
             locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-            positionProvider = locationManager.getBestProvider(criteria, true);
+
+            isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+            isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+            if (isGPSEnabled) {
+                getLocationFromProvider(locationManager, "gps");
+                setSaveButtonEnable();
+            } else if (isNetworkEnabled) {
+                getLocationFromProvider(locationManager, "network");
+                setSaveButtonEnable();
+            } else {
+                Toast.makeText(getApplicationContext(),"No provider",Toast.LENGTH_SHORT).show();
+            }
+
+
+
+
+
+
+         /*   positionProvider = locationManager.getBestProvider(criteria, true);
             location = locationManager.getLastKnownLocation(positionProvider);
 
             if (location != null) {
@@ -74,8 +95,8 @@ public class AddTent extends AppCompatActivity {
                 latitudeEditText.setText(String.valueOf(location.getLatitude()));
                 getProviderDetails(positionProvider);
             }
+*/
 
-            setSaveButtonEnable();
 
         } else {
 
@@ -88,6 +109,36 @@ public class AddTent extends AppCompatActivity {
         hideKeyboard();
         getCurrentTime();
     }
+
+    public void getLocationFromProvider(LocationManager locationManager, final String provider) {
+        LocationListener locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                longitudeEditText.setText(String.valueOf(location.getLongitude()));
+                latitudeEditText.setText(String.valueOf(location.getLatitude()));
+                getProviderDetails(provider);
+            }
+
+            @Override
+            public void onStatusChanged(String s, int i, Bundle bundle) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String s) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String s) {
+
+            }
+        };
+        locationManager.requestLocationUpdates(provider, 5000, 0, locationListener);
+
+    }
+
+
 
     public void setSaveButtonEnable() {
         if (TextUtils.isEmpty(longitudeEditText.getText().toString()) && (TextUtils.isEmpty(latitudeEditText.getText().toString()))) {
@@ -137,7 +188,7 @@ public class AddTent extends AppCompatActivity {
     }
 
     public void getProviderDetails(String provider) {
-        providerTextView.setText(getString(R.string.position_provider)+ " " + provider);
+        providerTextView.setText(getString(R.string.position_provider) + " " + provider);
     }
 
 }
