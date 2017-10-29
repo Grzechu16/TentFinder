@@ -20,8 +20,8 @@ import android.widget.Toast;
 
 public class Navigation extends AppCompatActivity implements SensorEventListener, LocationListener {
 
-    Double longitude = 19.962995;
-    Double latitude = 50.057765;
+    Double longitude = 19.966191;
+    Double latitude = 50.058091;
 
     ImageView arrow;
     TextView distance_text, coor;
@@ -85,8 +85,8 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
     }
 
     public void azimuthCalculate() {
-        deltaY = latitude - currLat;
-        deltaX = longitude - currLon;
+        deltaY = longitude - currLon;
+        deltaX = latitude - currLat;
 
         if (deltaY < 0) {
             wbDeltaY = -deltaY;
@@ -122,7 +122,7 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
     }
 
     public void distanceCalculate() {
-        distance = Math.sqrt(Math.pow(longitude - currLon, 2.0) + Math.pow(Math.cos(((currLon*Math.PI)/180.0))*(latitude - currLat), 2.0))*(40075.704/360.0);
+        distance = Math.sqrt(Math.pow(latitude - currLat, 2.0) + Math.pow(Math.cos(((currLat*Math.PI)/180.0))*(longitude - currLon), 2.0))*(40075.704/360.0);
     }
 
     private void refreshLoc() {
