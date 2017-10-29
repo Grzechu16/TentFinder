@@ -20,13 +20,11 @@ import android.widget.Toast;
 
 public class Navigation extends AppCompatActivity implements SensorEventListener, LocationListener {
 
-    Double longitude = 19.965433;
-    Double latitude = 50.057397;
+    Double longitude = null;
+    Double latitude = null;
 
     ImageView arrow;
-    Button bNavigate;
-    TextView distance_text, coor;
-    EditText tentName;
+    TextView distance_text, coor, tentName;
 
     Double currLon, currLat;
     Double deltaX, deltaY, wbDeltaX, wbDeltaY, fi, azimuthTent, angle, distance;
@@ -46,7 +44,7 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
 
         arrow = (ImageView) findViewById(R.id.arrow);
         arrow.setVisibility(View.INVISIBLE);
-        tentName = (EditText) findViewById(R.id.nazwaNamiotu_et);
+        tentName = (TextView) findViewById(R.id.nazwaNamiotu_tv);
 
         distance_text = (TextView) findViewById(R.id.distance_text);
         coor = (TextView) findViewById(R.id.coor);
@@ -54,6 +52,8 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             String title = extras.getString("name");
+            longitude = Double.parseDouble(extras.getString("long"));
+            latitude = Double.parseDouble(extras.getString("lati"));
             tentName.setText(title);
         }
 

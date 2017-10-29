@@ -34,8 +34,9 @@ public class AddTent extends AppCompatActivity {
     String positionProvider;
     Criteria criteria;
     LocationManager locationManager;
+    LocationListener locationListener;
     public boolean isGPSEnabled = false;
-    public boolean isNetworkEnabled= false;
+    public boolean isNetworkEnabled = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,33 +74,13 @@ public class AddTent extends AppCompatActivity {
             isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
             if (isGPSEnabled) {
-                getLocationFromProvider(locationManager, "gps");
-                setSaveButtonEnable();
+                getLocationFromProvider("gps");
             } else if (isNetworkEnabled) {
-                getLocationFromProvider(locationManager, "network");
-                setSaveButtonEnable();
+                getLocationFromProvider("network");
             } else {
-                Toast.makeText(getApplicationContext(),"No provider",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "No provider", Toast.LENGTH_SHORT).show();
             }
-
-
-
-
-
-
-         /*   positionProvider = locationManager.getBestProvider(criteria, true);
-            location = locationManager.getLastKnownLocation(positionProvider);
-
-            if (location != null) {
-                longitudeEditText.setText(String.valueOf(location.getLongitude()));
-                latitudeEditText.setText(String.valueOf(location.getLatitude()));
-                getProviderDetails(positionProvider);
-            }
-*/
-
-
         } else {
-
             //Request permission from the user
             if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
@@ -107,16 +88,16 @@ public class AddTent extends AppCompatActivity {
             }
         }
         hideKeyboard();
-        getCurrentTime();
     }
 
-    public void getLocationFromProvider(LocationManager locationManager, final String provider) {
+    public void getLocationFromProvider(final String provider) {
         LocationListener locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
                 longitudeEditText.setText(String.valueOf(location.getLongitude()));
                 latitudeEditText.setText(String.valueOf(location.getLatitude()));
-                getProviderDetails(provider);
+                providerTextView.setText(getString(R.string.position_provider) + " " + provider);
+                getCurrentTime();
             }
 
             @Override
@@ -138,29 +119,22 @@ public class AddTent extends AppCompatActivity {
 
     }
 
-
-
-    public void setSaveButtonEnable() {
-        if (TextUtils.isEmpty(longitudeEditText.getText().toString()) && (TextUtils.isEmpty(latitudeEditText.getText().toString()))) {
-            Toast.makeText(this, "Get location details first! ", Toast.LENGTH_LONG).show();
-            return;
-        } else {
-            saveButton.setEnabled(true);
-        }
-    }
-
     public void addNewTent(View view) {
 
-        String title = tentNameEditText.getText().toString();
-        String longitude = longitudeEditText.getText().toString();
-        String latitude = latitudeEditText.getText().toString();
+        if ((TextUtils.isEmpty(longitudeEditText.getText())) && (TextUtils.isEmpty(latitudeEditText.getText()))&& (TextUtils.isEmpty(tentNameEditText.getText()))) {
+            Toast.makeText(getApplicationContext(), "Get location details first!", Toast.LENGTH_SHORT).show();
+        } else {
+            String title = tentNameEditText.getText().toString();
+            String longitude = longitudeEditText.getText().toString();
+            String latitude = latitudeEditText.getText().toString();
 
-        Tent tent = new Tent(title, longitude, latitude);
+            Tent tent = new Tent(title, longitude, latitude);
 
-        Intent intent = new Intent();
-        intent.putExtra("NewTent", tent);
-        setResult(RESULT_OK, intent);
-        finish();
+            Intent intent = new Intent();
+            intent.putExtra("NewTent", tent);
+            setResult(RESULT_OK, intent);
+            finish();
+        }
     }
 
     public void showKeyboard() {
@@ -185,10 +159,6 @@ public class AddTent extends AppCompatActivity {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
         String strDate = simpleDateFormat.format(calendar.getTime());
         timeTextView.setText(getString(R.string.position_time) + " " + strDate);
-    }
-
-    public void getProviderDetails(String provider) {
-        providerTextView.setText(getString(R.string.position_provider) + " " + provider);
     }
 
 }

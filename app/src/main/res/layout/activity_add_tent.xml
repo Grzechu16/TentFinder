@@ -147,7 +147,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp"
-        android:enabled="false"
         android:onClick="addNewTent"
         android:text="@string/save_tent" />
 
