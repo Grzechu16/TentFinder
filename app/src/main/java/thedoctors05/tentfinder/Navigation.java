@@ -20,11 +20,10 @@ import android.widget.Toast;
 
 public class Navigation extends AppCompatActivity implements SensorEventListener, LocationListener {
 
-    Double longitude = 19.965433;
-    Double latitude = 50.057397;
+    Double longitude = 19.962995;
+    Double latitude = 50.057765;
 
     ImageView arrow;
-    Button bNavigate;
     TextView distance_text, coor;
     EditText tentName;
 
@@ -45,7 +44,6 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
         setContentView(R.layout.activity_navigation);
 
         arrow = (ImageView) findViewById(R.id.arrow);
-        arrow.setVisibility(View.INVISIBLE);
         tentName = (EditText) findViewById(R.id.nazwaNamiotu_et);
 
         distance_text = (TextView) findViewById(R.id.distance_text);
@@ -73,15 +71,14 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
         currLon = loc.getLongitude();
         currLat = loc.getLatitude();
 
+        azimuthCalculate();
         rotationCalculate();
         distanceCalculate();    //Order must be keeped
-        Log.d("debugging", "                             ");
         Log.d("debugging", "azimuthTent: " + azimuthTent);
         Log.d("debugging", "angle: " + angle);
         Log.d("debugging", "distance: " + distance);
 
         arrow.setRotation(angle.floatValue());
-        arrow.setVisibility(View.VISIBLE);
 
         distance_text.setText(distance + "");
         coor.setText(azimuthPhone + "");
@@ -103,21 +100,24 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
             wbDeltaX = deltaX;
         }
 
-        fi = Math.atan(wbDeltaY / wbDeltaX);
+        fi = Math.toDegrees(Math.atan(wbDeltaY / wbDeltaX));
+        Log.d("debugging", "fi: " + fi);
 
         if (deltaY > 0 && deltaX > 0) {
             azimuthTent = fi;
         } else if (deltaY > 0 && deltaX < 0) {
             azimuthTent = 180.0 - fi;
         } else if (deltaY < 0 && deltaX < 0) {
-            azimuthTent = 180. + fi;
+            azimuthTent = 180.0 + fi;
         } else if (deltaY < 0 && deltaX > 0) {
             azimuthTent = 360.0 - fi;
         }
+
+        Log.d("debugging", "deltaY: " + deltaY + " = " + latitude + " - " + currLat);
+        Log.d("debugging", "deltaX: " + deltaX + " = " + longitude + " - " + currLon);
     }
 
     public void rotationCalculate() {
-        azimuthCalculate();
         angle = azimuthTent - azimuthPhone;
     }
 
@@ -135,6 +135,12 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
 
         currLon = loc.getLongitude();
         currLat = loc.getLatitude();
+
+        azimuthCalculate();
+        rotationCalculate();
+        distanceCalculate();    //Order must be keeped
+
+        distance_text.setText(distance + "");
         Log.d("debugging", "Current lon/lat: " + currLon + " / " + currLat);
     }
 
@@ -150,7 +156,7 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
 
         rotationCalculate();
         arrow.setRotation(angle.floatValue());
-        coor.setText(azimuthPhone + "");
+        coor.setText("Phone az.: " + azimuthPhone + "\nTent az.: " + azimuthTent + "\nAngle: " + angle);
     }
 
     @Override

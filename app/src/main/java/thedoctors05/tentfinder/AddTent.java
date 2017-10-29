@@ -42,7 +42,6 @@ public class AddTent extends AppCompatActivity {
 
         addElements();
         showKeyboard();
-
     }
 
     public void addElements() {
@@ -91,7 +90,7 @@ public class AddTent extends AppCompatActivity {
 
     public void setSaveButtonEnable() {
         if (TextUtils.isEmpty(longitudeEditText.getText().toString()) && (TextUtils.isEmpty(latitudeEditText.getText().toString()))) {
-            Toast.makeText(this, "Get location details first! ", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Get location details first!", Toast.LENGTH_LONG).show();
             return;
         } else {
             saveButton.setEnabled(true);
