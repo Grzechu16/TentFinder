@@ -1,5 +1,6 @@
 package thedoctors05.tentfinder;
 
+import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -8,11 +9,14 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,8 +39,11 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
     Criteria cr;
     String bestProvider;
     Location loc;
-
     private SensorManager sm;
+
+    private int[] layouts;
+    private ViewPager viewPager;
+    private ViewPagerAdapter viewPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +62,18 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
             tentName.setText(title);
         }
 
+        arrow.setVisibility(View.INVISIBLE);
         navigationStart();
+
+        viewPager = (ViewPager) findViewById(R.id.view_pager);
+        viewPagerAdapter = new ViewPagerAdapter();
+        viewPager.setAdapter(viewPagerAdapter);
+        viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
+
+        layouts = new int[] {
+                R.layout.activity_navigation,
+                R.layout.activity_test
+        };
     }
 
     public void navigationStart () {
@@ -74,9 +92,6 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
         azimuthCalculate();
         rotationCalculate();
         distanceCalculate();    //Order must be keeped
-        Log.d("debugging", "azimuthTent: " + azimuthTent);
-        Log.d("debugging", "angle: " + angle);
-        Log.d("debugging", "distance: " + distance);
 
         arrow.setRotation(angle.floatValue());
 
@@ -101,7 +116,6 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
         }
 
         fi = Math.toDegrees(Math.atan(wbDeltaY / wbDeltaX));
-        Log.d("debugging", "fi: " + fi);
 
         if (deltaY > 0 && deltaX > 0) {
             azimuthTent = fi;
@@ -112,9 +126,6 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
         } else if (deltaY < 0 && deltaX > 0) {
             azimuthTent = 360.0 - fi;
         }
-
-        Log.d("debugging", "deltaY: " + deltaY + " = " + latitude + " - " + currLat);
-        Log.d("debugging", "deltaX: " + deltaX + " = " + longitude + " - " + currLon);
     }
 
     public void rotationCalculate() {
@@ -129,6 +140,32 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
         bestProvider = lm.getBestProvider(cr, true);
         loc = lm.getLastKnownLocation(bestProvider);
     }
+
+    private int getItem(int i) {
+        return viewPager.getCurrentItem() + i;
+    }
+
+    ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
+
+        @Override
+        public void onPageSelected(int position) {
+
+            switch (position){
+                case 0:
+                    arrow.setVisibility(View.VISIBLE);
+                    break;
+                case 1:
+                    arrow.setVisibility(View.INVISIBLE);
+                    break;
+            }
+        }
+
+        @Override
+        public void onPageScrolled(int arg0, float arg1, int arg2) {}
+
+        @Override
+        public void onPageScrollStateChanged(int arg0) {}
+    };
 
     public void onLocationChanged (Location location) {
         refreshLoc();
@@ -167,4 +204,41 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {}
+
+    /**
+     * View pager adapter
+     */
+    public class ViewPagerAdapter extends PagerAdapter {
+        private LayoutInflater layoutInflater;
+
+        public ViewPagerAdapter() {
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            View view = layoutInflater.inflate(layouts[position], container, false);
+            container.addView(view);
+
+            return view;
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object obj) {
+            return view == obj;
+        }
+
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            View view = (View) object;
+            container.removeView(view);
+        }
+    }
 }

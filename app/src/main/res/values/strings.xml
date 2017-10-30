@@ -17,4 +17,5 @@
     <string name="longitudeRowDesc">Longitude:</string>
     <string name="position_time">Position details received at </string>
     <string name="position_provider">Provider: </string>
+    <string name="title_activity_map">Map</string>
 </resources>
