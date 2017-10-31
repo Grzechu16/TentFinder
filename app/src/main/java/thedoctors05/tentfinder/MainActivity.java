@@ -35,24 +35,24 @@ public class MainActivity extends AppCompatActivity {
         adapter = new TentAdapter(this, R.layout.custom_row, lista);
         listView.setAdapter(adapter);
 
-       listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-           @Override
-           public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-               tentName = ((TextView) view.findViewById(R.id.tvTitleRow)).getText().toString();
-               longitude = ((TextView) view.findViewById(R.id.tvLongitudeRow)).getText().toString();
-               latitude = ((TextView) view.findViewById(R.id.tvLatitudeRow)).getText().toString();
+                tentName = ((TextView) view.findViewById(R.id.tvTitleRow)).getText().toString();
+                longitude = ((TextView) view.findViewById(R.id.tvLongitudeRow)).getText().toString();
+                latitude = ((TextView) view.findViewById(R.id.tvLatitudeRow)).getText().toString();
 
-               Intent intent = new Intent(getApplicationContext(),Navigation.class);
-               intent.putExtra(NAME, tentName);
-               intent.putExtra(LONG, longitude);
-               intent.putExtra(LATI, latitude);
-               startActivity(intent);
-           }
-       });
+                Intent intent = new Intent(getApplicationContext(), Navigation.class);
+                intent.putExtra(NAME, tentName);
+                intent.putExtra(LONG, longitude);
+                intent.putExtra(LATI, latitude);
+                startActivity(intent);
+            }
+        });
     }
 
-    public void addElements(){
+    public void addElements() {
         listView = (ListView) findViewById(R.id.listView);
         addTent = (Button) findViewById(R.id.bAddTent);
     }

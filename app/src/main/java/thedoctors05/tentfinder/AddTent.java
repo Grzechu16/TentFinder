@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.provider.ContactsContract;
@@ -33,7 +34,9 @@ public class AddTent extends AppCompatActivity {
     String positionProvider;
     Criteria criteria;
     LocationManager locationManager;
-    Location location;
+    LocationListener locationListener;
+    public boolean isGPSEnabled = false;
+    public boolean isNetworkEnabled = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,19 +68,18 @@ public class AddTent extends AppCompatActivity {
 
             criteria = new Criteria();
             locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-            positionProvider = locationManager.getBestProvider(criteria, true);
-            location = locationManager.getLastKnownLocation(positionProvider);
 
-            if (location != null) {
-                longitudeEditText.setText(String.valueOf(location.getLongitude()));
-                latitudeEditText.setText(String.valueOf(location.getLatitude()));
-                getProviderDetails(positionProvider);
+            isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+            isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+            if (isGPSEnabled) {
+                getLocationFromProvider("gps");
+            } else if (isNetworkEnabled) {
+                getLocationFromProvider("network");
+            } else {
+                Toast.makeText(getApplicationContext(), "No provider", Toast.LENGTH_SHORT).show();
             }
-
-            setSaveButtonEnable();
-
         } else {
-
             //Request permission from the user
             if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
@@ -85,9 +87,9 @@ public class AddTent extends AppCompatActivity {
             }
         }
         hideKeyboard();
-        getCurrentTime();
     }
 
+<<<<<<< HEAD
     public void setSaveButtonEnable() {
         if (TextUtils.isEmpty(longitudeEditText.getText().toString()) && (TextUtils.isEmpty(latitudeEditText.getText().toString()))) {
             Toast.makeText(this, "Get location details first!", Toast.LENGTH_LONG).show();
@@ -95,20 +97,53 @@ public class AddTent extends AppCompatActivity {
         } else {
             saveButton.setEnabled(true);
         }
+=======
+    public void getLocationFromProvider(final String provider) {
+        LocationListener locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                longitudeEditText.setText(String.valueOf(location.getLongitude()));
+                latitudeEditText.setText(String.valueOf(location.getLatitude()));
+                providerTextView.setText(getString(R.string.position_provider) + " " + provider);
+                getCurrentTime();
+            }
+
+            @Override
+            public void onStatusChanged(String s, int i, Bundle bundle) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String s) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String s) {
+
+            }
+        };
+        locationManager.requestLocationUpdates(provider, 5000, 0, locationListener);
+
+>>>>>>> b0e8bb535a98b62ef40203e81ef502aa73d6ec9b
     }
 
     public void addNewTent(View view) {
 
-        String title = tentNameEditText.getText().toString();
-        String longitude = longitudeEditText.getText().toString();
-        String latitude = latitudeEditText.getText().toString();
+        if ((TextUtils.isEmpty(longitudeEditText.getText())) && (TextUtils.isEmpty(latitudeEditText.getText()))&& (TextUtils.isEmpty(tentNameEditText.getText()))) {
+            Toast.makeText(getApplicationContext(), "Get location details first!", Toast.LENGTH_SHORT).show();
+        } else {
+            String title = tentNameEditText.getText().toString();
+            String longitude = longitudeEditText.getText().toString();
+            String latitude = latitudeEditText.getText().toString();
 
-        Tent tent = new Tent(title, longitude, latitude);
+            Tent tent = new Tent(title, longitude, latitude);
 
-        Intent intent = new Intent();
-        intent.putExtra("NewTent", tent);
-        setResult(RESULT_OK, intent);
-        finish();
+            Intent intent = new Intent();
+            intent.putExtra("NewTent", tent);
+            setResult(RESULT_OK, intent);
+            finish();
+        }
     }
 
     public void showKeyboard() {
@@ -133,10 +168,6 @@ public class AddTent extends AppCompatActivity {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
         String strDate = simpleDateFormat.format(calendar.getTime());
         timeTextView.setText(getString(R.string.position_time) + " " + strDate);
-    }
-
-    public void getProviderDetails(String provider) {
-        providerTextView.setText(getString(R.string.position_provider)+ " " + provider);
     }
 
 }
