@@ -89,7 +89,6 @@ public class AddTent extends AppCompatActivity {
         hideKeyboard();
     }
 
-<<<<<<< HEAD
     public void setSaveButtonEnable() {
         if (TextUtils.isEmpty(longitudeEditText.getText().toString()) && (TextUtils.isEmpty(latitudeEditText.getText().toString()))) {
             Toast.makeText(this, "Get location details first!", Toast.LENGTH_LONG).show();
@@ -97,7 +96,8 @@ public class AddTent extends AppCompatActivity {
         } else {
             saveButton.setEnabled(true);
         }
-=======
+    }
+
     public void getLocationFromProvider(final String provider) {
         LocationListener locationListener = new LocationListener() {
             @Override
@@ -124,8 +124,6 @@ public class AddTent extends AppCompatActivity {
             }
         };
         locationManager.requestLocationUpdates(provider, 5000, 0, locationListener);
-
->>>>>>> b0e8bb535a98b62ef40203e81ef502aa73d6ec9b
     }
 
     public void addNewTent(View view) {

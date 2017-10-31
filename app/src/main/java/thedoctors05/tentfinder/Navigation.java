@@ -49,7 +49,6 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
         setContentView(R.layout.activity_navigation);
 
         arrow = (ImageView) findViewById(R.id.arrow);
-        tentName = (EditText) findViewById(R.id.nazwaNamiotu_et);
         arrow.setVisibility(View.INVISIBLE);
         tentName = (TextView) findViewById(R.id.nazwaNamiotu_tv);
         distance_text = (TextView) findViewById(R.id.distance_text);
