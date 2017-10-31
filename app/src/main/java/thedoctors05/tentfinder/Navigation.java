@@ -23,13 +23,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Navigation extends AppCompatActivity implements SensorEventListener, LocationListener {
-
-    Double longitude = 19.966191;
-    Double latitude = 50.058091;
-
     ImageView arrow;
     TextView distance_text, coor;
     EditText tentName;
+    Double longitude = null;
+    Double latitude = null;
+
+    ImageView arrow;
+    TextView distance_text, coor, tentName;
 
     Double currLon, currLat;
     Double deltaX, deltaY, wbDeltaX, wbDeltaY, fi, azimuthTent, angle, distance;
@@ -52,13 +53,16 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
 
         arrow = (ImageView) findViewById(R.id.arrow);
         tentName = (EditText) findViewById(R.id.nazwaNamiotu_et);
-
+        arrow.setVisibility(View.INVISIBLE);
+        tentName = (TextView) findViewById(R.id.nazwaNamiotu_tv);
         distance_text = (TextView) findViewById(R.id.distance_text);
         coor = (TextView) findViewById(R.id.coor);
 
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             String title = extras.getString("name");
+            longitude = Double.parseDouble(extras.getString("long"));
+            latitude = Double.parseDouble(extras.getString("lati"));
             tentName.setText(title);
         }
 

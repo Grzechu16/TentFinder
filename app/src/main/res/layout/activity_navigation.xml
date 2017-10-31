@@ -38,12 +38,12 @@
             android:layout_marginRight="20dp"
             android:src="@mipmap/icon" />
 
-        <EditText
+        <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="textCapSentences"
             android:ems="10"
-            android:id="@+id/nazwaNamiotu_et"
+            android:id="@+id/nazwaNamiotu_tv"
             android:layout_marginTop="100dp"
             android:gravity="center_horizontal"
             android:textColor="#ffffff"
@@ -54,7 +54,8 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
-            android:src="@drawable/arrow" />
+            android:src="@drawable/arrow"
+            android:visibility="invisible" />
 
         <TextView
             android:id="@+id/distance_text"
