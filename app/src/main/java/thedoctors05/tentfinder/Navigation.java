@@ -23,9 +23,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Navigation extends AppCompatActivity implements SensorEventListener, LocationListener {
-    ImageView arrow;
-    TextView distance_text, coor;
-    EditText tentName;
     Double longitude = null;
     Double latitude = null;
 
