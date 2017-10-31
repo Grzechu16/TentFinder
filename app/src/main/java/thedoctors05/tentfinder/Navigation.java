@@ -1,5 +1,6 @@
 package thedoctors05.tentfinder;
 
+import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -8,11 +9,14 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,7 +39,6 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
     Criteria cr;
     String bestProvider;
     Location loc;
-
     private SensorManager sm;
 
     @Override
@@ -55,6 +58,7 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
             tentName.setText(title);
         }
 
+        arrow.setVisibility(View.INVISIBLE);
         navigationStart();
     }
 
@@ -74,9 +78,6 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
         azimuthCalculate();
         rotationCalculate();
         distanceCalculate();    //Order must be keeped
-        Log.d("debugging", "azimuthTent: " + azimuthTent);
-        Log.d("debugging", "angle: " + angle);
-        Log.d("debugging", "distance: " + distance);
 
         arrow.setRotation(angle.floatValue());
 
@@ -101,7 +102,6 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
         }
 
         fi = Math.toDegrees(Math.atan(wbDeltaY / wbDeltaX));
-        Log.d("debugging", "fi: " + fi);
 
         if (deltaY > 0 && deltaX > 0) {
             azimuthTent = fi;
@@ -112,9 +112,6 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
         } else if (deltaY < 0 && deltaX > 0) {
             azimuthTent = 360.0 - fi;
         }
-
-        Log.d("debugging", "deltaY: " + deltaY + " = " + latitude + " - " + currLat);
-        Log.d("debugging", "deltaX: " + deltaX + " = " + longitude + " - " + currLon);
     }
 
     public void rotationCalculate() {
