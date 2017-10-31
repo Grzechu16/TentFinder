@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TentFinder.iml" filepath="$PROJECT_DIR$/TentFinder.iml" />
+      <module fileurl="file://C:\Users\Gregory\Desktop\Tent\TentFinder\TentFinder.iml" filepath="C:\Users\Gregory\Desktop\Tent\TentFinder\TentFinder.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\Gregory\Desktop\Tent\TentFinder\app\app.iml" filepath="C:\Users\Gregory\Desktop\Tent\TentFinder\app\app.iml" />
     </modules>
   </component>
 </project>

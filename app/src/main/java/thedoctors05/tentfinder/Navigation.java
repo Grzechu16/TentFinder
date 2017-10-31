@@ -17,8 +17,8 @@ import android.widget.Toast;
 
 public class Navigation extends AppCompatActivity implements SensorEventListener, LocationListener {
 
-    Double longitude = 19.966191;
-    Double latitude = 50.058091;
+    Double longitude = null;
+    Double latitude = null;
 
     ImageView arrow;
     TextView distance_text, coor;
@@ -50,6 +50,8 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
             Bundle extras = getIntent().getExtras();
             String title = extras.getString("name");
             tentName.setText(title);
+            longitude = Double.parseDouble(extras.getString("long"));
+            latitude = Double.parseDouble(extras.getString("lati"));
         }
 
         navigationStart();
