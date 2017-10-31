@@ -123,7 +123,7 @@ public class AddTent extends AppCompatActivity {
 
             }
         };
-        locationManager.requestLocationUpdates(provider, 5000, 0, locationListener);
+        locationManager.requestLocationUpdates(provider, 1000, 1, locationListener);
     }
 
     public void addNewTent(View view) {
