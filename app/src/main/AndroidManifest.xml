@@ -21,8 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Navigation" />
-        <activity android:name=".AddTent" />
+        <activity android:name=".Navigation"
+            android:screenOrientation="portrait" />
+        <activity android:name=".AddTent"
+            android:screenOrientation="portrait" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

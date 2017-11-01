@@ -17,15 +17,15 @@ import android.widget.Toast;
 
 public class Navigation extends AppCompatActivity implements SensorEventListener, LocationListener {
 
-    Double longitude = null;
-    Double latitude = null;
+    double longitude = 0.0;
+    double latitude = 0.0;
 
     ImageView arrow;
     TextView distance_text, coor;
     TextView tentName;
 
-    Double currLon, currLat;
-    Double deltaX, deltaY, wbDeltaX, wbDeltaY, fi, azimuthTent, angle, distance;
+    double currLon, currLat;
+    double deltaX, deltaY, wbDeltaX, wbDeltaY, fi, azimuthTent, angle, distance;
     float azimuthPhone;
 
     LocationManager lm;
@@ -77,7 +77,7 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
         Log.d("debugging", "angle: " + angle);
         Log.d("debugging", "distance: " + distance);
 
-        arrow.setRotation(angle.floatValue());
+        arrow.setRotation((float)angle);
 
         distance_text.setText(distance + "");
         coor.setText(azimuthPhone + "");
@@ -112,8 +112,8 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
             azimuthTent = 360.0 - fi;
         }
 
-        Log.d("debugging", "deltaY: " + deltaY + " = " + latitude + " - " + currLat);
-        Log.d("debugging", "deltaX: " + deltaX + " = " + longitude + " - " + currLon);
+        Log.d("debugging", "deltaY: " + deltaY + " = " + longitude + " - " + currLon);
+        Log.d("debugging", "deltaX: " + deltaX + " = " + latitude + " - " + currLat);
     }
 
     public void rotationCalculate() {
@@ -154,7 +154,7 @@ public class Navigation extends AppCompatActivity implements SensorEventListener
         azimuthPhone = event.values[0];
 
         rotationCalculate();
-        arrow.setRotation(angle.floatValue());
+        arrow.setRotation((float)angle);
         coor.setText("Phone az.: " + azimuthPhone + "\nTent az.: " + azimuthTent + "\nAngle: " + angle);
     }
 
