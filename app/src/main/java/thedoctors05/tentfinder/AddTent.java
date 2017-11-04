@@ -31,10 +31,8 @@ public class AddTent extends AppCompatActivity {
     EditText tentNameEditText, longitudeEditText, latitudeEditText;
     TextView longitudeTextView, latitudeTextView, providerTextView, timeTextView;
     Button getPositionButton, saveButton;
-    String positionProvider;
     Criteria criteria;
     LocationManager locationManager;
-    LocationListener locationListener;
     public boolean isGPSEnabled = false;
     public boolean isNetworkEnabled = false;
 
@@ -60,7 +58,6 @@ public class AddTent extends AppCompatActivity {
     }
 
     public void getPosition(View view) {
-
         //Checking permission for SDK >= 23
         if (Build.VERSION.SDK_INT >= 23 &&
                 ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
@@ -89,15 +86,6 @@ public class AddTent extends AppCompatActivity {
         hideKeyboard();
     }
 
-<<<<<<< HEAD
-    public void setSaveButtonEnable() {
-        if (TextUtils.isEmpty(longitudeEditText.getText().toString()) && (TextUtils.isEmpty(latitudeEditText.getText().toString()))) {
-            Toast.makeText(this, "Get location details first!", Toast.LENGTH_LONG).show();
-            return;
-        } else {
-            saveButton.setEnabled(true);
-        }
-=======
     public void getLocationFromProvider(final String provider) {
         LocationListener locationListener = new LocationListener() {
             @Override
@@ -124,8 +112,6 @@ public class AddTent extends AppCompatActivity {
             }
         };
         locationManager.requestLocationUpdates(provider, 5000, 0, locationListener);
-
->>>>>>> b0e8bb535a98b62ef40203e81ef502aa73d6ec9b
     }
 
     public void addNewTent(View view) {
