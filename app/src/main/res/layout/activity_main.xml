@@ -42,11 +42,28 @@
 
     <Button
         android:id="@+id/bAddTent"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/add_new_tent"
-        android:onClick="addTentActivity"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/bUpdateDatabase"
+        android:text="@string/add_new_tent" />
+
+    <Button
+        android:id="@+id/bUpdateDatabase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/imageView"
+        android:text="@string/updateDatabase" />
+
+    <Button
+        android:id="@+id/bExit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/bUpdateDatabase"
+        android:text="@string/exit" />
 
 </RelativeLayout>

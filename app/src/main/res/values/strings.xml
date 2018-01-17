@@ -5,7 +5,7 @@
     <string name="save_tent">Save Tent</string>
     <string name="longitude">Longitude:</string>
     <string name="latitude">Latitude:</string>
-    <string name="add_new_tent">Add new tent</string>
+    <string name="add_new_tent">Add tent</string>
     <string name="navigate">Navigate</string>
     <string name="title_activity_navigation">Navigation</string>
     <string name="hello_round">Hello Round World!</string>
@@ -18,4 +18,10 @@
     <string name="position_time">Position details received at </string>
     <string name="position_provider">Provider: </string>
     <string name="title_activity_map">Map</string>
+    <string name="dataFromDatabaseInfo">Data received from database</string>
+    <string name="dataFromDatabaseError">Error. Database isn\'t available</string>
+    <string name="updateDatabase">Update database</string>
+    <string name="exit">Exit</string>
+    <string name="dataSaved">Data saved</string>
+    <string name="dataNotSaved">Data not saved</string>
 </resources>

@@ -7,6 +7,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
@@ -35,6 +36,7 @@ public class AddTent extends AppCompatActivity {
     LocationManager locationManager;
     public boolean isGPSEnabled = false;
     public boolean isNetworkEnabled = false;
+    public boolean isPermission = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,15 +59,27 @@ public class AddTent extends AppCompatActivity {
         saveButton = (Button) findViewById(R.id.bSaveTent);
     }
 
-    public void getPosition(View view) {
+    public void checkPermission() {
         //Checking permission for SDK >= 23
         if (Build.VERSION.SDK_INT >= 23 &&
                 ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
+        } else {
+            //Request permission from the user
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+                return;
+            }
+        }
+        isPermission = true;
+    }
+
+    public void getPosition(View view) {
+        checkPermission();
+        if (isPermission) {
             criteria = new Criteria();
             locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
             isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
             isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
@@ -75,12 +89,6 @@ public class AddTent extends AppCompatActivity {
                 getLocationFromProvider("network");
             } else {
                 Toast.makeText(getApplicationContext(), "No provider", Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            //Request permission from the user
-            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-                return;
             }
         }
         hideKeyboard();
@@ -116,7 +124,7 @@ public class AddTent extends AppCompatActivity {
 
     public void addNewTent(View view) {
 
-        if ((TextUtils.isEmpty(longitudeEditText.getText())) && (TextUtils.isEmpty(latitudeEditText.getText()))&& (TextUtils.isEmpty(tentNameEditText.getText()))) {
+        if ((TextUtils.isEmpty(longitudeEditText.getText())) && (TextUtils.isEmpty(latitudeEditText.getText())) && (TextUtils.isEmpty(tentNameEditText.getText()))) {
             Toast.makeText(getApplicationContext(), "Get location details first!", Toast.LENGTH_SHORT).show();
         } else {
             String title = tentNameEditText.getText().toString();
@@ -154,6 +162,21 @@ public class AddTent extends AppCompatActivity {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
         String strDate = simpleDateFormat.format(calendar.getTime());
         timeTextView.setText(getString(R.string.position_time) + " " + strDate);
+    }
+
+    private class AsyncTent extends AsyncTask<Void, Integer, LocationDetails> {
+
+        @Override
+        protected LocationDetails doInBackground(Void... voids) {
+            LocationDetails locationDetails = new LocationDetails();
+            getLocationFromProvider("gps");
+            return null;
+        }
+    }
+
+    public class LocationDetails {
+        double Latitude;
+        double Longitude;
     }
 
 }

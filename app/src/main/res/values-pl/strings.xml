@@ -17,4 +17,10 @@
     <string name="longitudeRowDesc">Długość: </string>
     <string name="position_time">Dane pochodzą z godziny </string>
     <string name="position_provider">Źródło sygnału: </string>
+    <string name="dataFromDatabaseInfo">Pobrano listę namiotów z bazy danych</string>
+    <string name="dataFromDatabaseError">Błąd połączenia z bazą danych</string>
+    <string name="updateDatabase">Zapisz listę</string>
+    <string name="exit">Wyjdź</string>
+    <string name="dataSaved">Lista zapisana w bazie</string>
+    <string name="dataNotSaved">Błąd zapisu w bazie danych</string>
 </resources>

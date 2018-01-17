@@ -3,13 +3,21 @@ package thedoctors05.tentfinder;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Gregory on 2017-10-26.
  */
 
 public class Tent implements Parcelable {
 
+    @SerializedName("Title")
     public String Title;
+    @SerializedName("Latitude")
+    public String Latitude;
+    @SerializedName("Longitude")
+    public String Longitude;
 
     public String getTitle() {
         return Title;
@@ -35,8 +43,7 @@ public class Tent implements Parcelable {
         Latitude = latitude;
     }
 
-    public String Longitude;
-    public String Latitude;
+
 
     public Tent() {
 
