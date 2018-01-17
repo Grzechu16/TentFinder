@@ -13,7 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * Created by Gregory on 2017-10-26.
+ * List adapter for main activity
  */
 
 public class TentAdapter extends ArrayAdapter<Tent> {

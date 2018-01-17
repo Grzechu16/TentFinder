@@ -26,7 +26,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
+/**
+ * Activity which allows to add new tent to list view in main activity
+ */
 public class AddTent extends AppCompatActivity {
 
     EditText tentNameEditText, longitudeEditText, latitudeEditText;
@@ -46,7 +48,9 @@ public class AddTent extends AppCompatActivity {
         addElements();
         showKeyboard();
     }
-
+    /**
+     * Method adds references to visual elements
+     */
     public void addElements() {
         tentNameEditText = (EditText) findViewById(R.id.etTentName);
         longitudeTextView = (TextView) findViewById(R.id.tvLongitude);
@@ -58,7 +62,9 @@ public class AddTent extends AppCompatActivity {
         timeTextView = (TextView) findViewById(R.id.tvTime);
         saveButton = (Button) findViewById(R.id.bSaveTent);
     }
-
+    /**
+     * Method checks whether user allows application to get data from GPS
+     */
     public void checkPermission() {
         //Checking permission for SDK >= 23
         if (Build.VERSION.SDK_INT >= 23 &&
@@ -74,7 +80,9 @@ public class AddTent extends AppCompatActivity {
         }
         isPermission = true;
     }
-
+    /**
+     * Method checks whether GPS is enable to get position details
+     */
     public void getPosition(View view) {
         checkPermission();
         if (isPermission) {
@@ -93,7 +101,9 @@ public class AddTent extends AppCompatActivity {
         }
         hideKeyboard();
     }
-
+    /**
+     * Method gets position details from the best provider
+     */
     public void getLocationFromProvider(final String provider) {
         LocationListener locationListener = new LocationListener() {
             @Override
@@ -121,7 +131,9 @@ public class AddTent extends AppCompatActivity {
         };
         locationManager.requestLocationUpdates(provider, 5000, 0, locationListener);
     }
-
+    /**
+     * Method close current activity and pass new tent details to main activity
+     */
     public void addNewTent(View view) {
 
         if ((TextUtils.isEmpty(longitudeEditText.getText())) && (TextUtils.isEmpty(latitudeEditText.getText())) && (TextUtils.isEmpty(tentNameEditText.getText()))) {
@@ -139,7 +151,9 @@ public class AddTent extends AppCompatActivity {
             finish();
         }
     }
-
+    /**
+     * Show keyboard on activity start
+     */
     public void showKeyboard() {
         tentNameEditText.requestFocus();
         tentNameEditText.postDelayed(new Runnable() {
@@ -151,12 +165,16 @@ public class AddTent extends AppCompatActivity {
         }, 200);
 
     }
-
+    /**
+     * Hide keyboard when clicking outside of edittext field
+     */
     public void hideKeyboard() {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(tentNameEditText.getWindowToken(), 0);
     }
-
+    /**
+     * Get current time
+     */
     public void getCurrentTime() {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
@@ -164,20 +182,7 @@ public class AddTent extends AppCompatActivity {
         timeTextView.setText(getString(R.string.position_time) + " " + strDate);
     }
 
-    private class AsyncTent extends AsyncTask<Void, Integer, LocationDetails> {
 
-        @Override
-        protected LocationDetails doInBackground(Void... voids) {
-            LocationDetails locationDetails = new LocationDetails();
-            getLocationFromProvider("gps");
-            return null;
-        }
-    }
-
-    public class LocationDetails {
-        double Latitude;
-        double Longitude;
-    }
 
 }
 

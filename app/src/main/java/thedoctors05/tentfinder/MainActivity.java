@@ -21,7 +21,7 @@ import retrofit.client.Response;
 public class MainActivity extends AppCompatActivity {
 
     ListView listView;
-    Button addTent, updateDatabase, exit;
+    Button buttonAddTent, buttonUpdateDatabase, buttonExit;
     ArrayList<Tent> lista = new ArrayList();
     TentAdapter adapter;
     public static final int REQUEST_CODE = 123;
@@ -42,19 +42,23 @@ public class MainActivity extends AppCompatActivity {
 
         adapter = new TentAdapter(this, R.layout.custom_row, lista);
         listView.setAdapter(adapter);
-        lista.add(new Tent("Namiot3", "141", "1411"));
-        adapter.notifyDataSetChanged();
-       // postData(updateDatabase, "namiotSuper", "4", "1");
+
         setListeners();
     }
 
+    /**
+     * Method adds references to visual elements
+     */
     public void addElements() {
         listView = (ListView) findViewById(R.id.listView);
-        addTent = (Button) findViewById(R.id.bAddTent);
-        updateDatabase = (Button) findViewById(R.id.bUpdateDatabase);
-        exit = (Button) findViewById(R.id.bExit);
+        buttonAddTent = (Button) findViewById(R.id.bAddTent);
+        buttonUpdateDatabase = (Button) findViewById(R.id.bUpdateDatabase);
+        buttonExit = (Button) findViewById(R.id.bExit);
     }
 
+    /**
+     * Method sets listeners for buttons and listView
+     */
     public void setListeners() {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -72,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        updateDatabase.setOnClickListener(new View.OnClickListener() {
+        buttonUpdateDatabase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 for (int i = 0; i < lista.size(); i++) {
@@ -81,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        exit.setOnClickListener(new View.OnClickListener() {
+        buttonExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 for (int i = 0; i < lista.size(); i++) {
@@ -91,14 +95,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        addTent.setOnClickListener(new View.OnClickListener() {
+        buttonAddTent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addTentActivity();
             }
         });
     }
-
+    /**
+     * Method which allows to open new activity and add new tent to list
+     */
     public void addTentActivity() {
         Intent intent = new Intent(this, AddTent.class);
         startActivityForResult(intent, REQUEST_CODE);
@@ -117,7 +123,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
+    /**
+     * Method which initialize retrofit api to generate get and post requests
+     */
     public void initializeRetrofit() {
         retrofit = new RestAdapter.Builder()
                 .setEndpoint("http://192.168.2.105:8080")
@@ -126,7 +134,9 @@ public class MainActivity extends AppCompatActivity {
 
         retrofitWebService = retrofit.create(RetrofitWebService.class);
     }
-
+    /**
+     * Method which allows to get list of tents from database
+     */
     public void GetData() {
         initializeRetrofit();
         retrofitWebService.getData(new Callback<List<Tent>>() {
@@ -143,7 +153,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
+    /**
+     * Method which allows to update database with new list of tents
+     */
     public void postData(String Title, String Longitude, String Latitude) {
         initializeRetrofit();
         retrofitWebService.postData(Title, Longitude, Latitude, new Callback<String>() {

@@ -7,7 +7,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by Gregory on 2017-10-26.
+ * Class describes Tent object
  */
 
 public class Tent implements Parcelable {
