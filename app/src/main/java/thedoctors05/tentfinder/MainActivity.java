@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void initializeRetrofit() {
         retrofit = new RestAdapter.Builder()
-                .setEndpoint("http://192.168.2.105:8080")
+                .setEndpoint("http://10.0.2.2:8080")
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .build();
 
